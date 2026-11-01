@@ -196,18 +196,3 @@ Ditampilkan menggunakan Alpine.js (`x-show="rewardOpen" x-transition.duration.30
 ```
 
 ---
-
-## 6. Prompt Directives untuk Google Stitch
-
-Saat mengimpor spesifikasi ini ke dalam Google Stitch untuk membuat *screen mockup*, gunakan instruksi berikut:
-
-```
-Platform: Mobile-first Web Shell (390px width, responsive container).
-Framework Aesthetic: Clean Laravel Blade + Tailwind CSS styled layout.
-Primary Theme: Warm campus mascot (#F95700 primary orange, #FFF4EC warm tint, #F8FAFC canvas).
-Key Screens to generate:
-1. "Cat Hunting Scanner Screen": Camera viewfinder with orange rounded reticle, live GPS validation badge, and quick mini Cat-dex row below.
-2. "Reward Pop-up Sheet": A rounded-t-3xl modal showing confetti, "+50 Hunting Points" golden badge, cat profile snapshot from Supabase Storage, and dual action buttons.
-3. "Cat-dex Grid Screen": 2-column mobile card grid showing captured cats with vaccination pills and silhouette cards for undiscovered cats.
-Typography: Plus Jakarta Sans / Inter, friendly rounded buttons, 44px touch-friendly tap targets.
-```
