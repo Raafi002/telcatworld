@@ -20,6 +20,40 @@
 4. **Layar 4 (Hasil Pendekatan & Klaim Poin):** Menampilkan status keberhasilan meluluhkan kucing, perolehan poin ekspedisi, status *review* data observasi, dan pratinjau kartu kucing baru.
 5. **Layar 5 (Galeri Koleksi / Cat-Dex):** Menampilkan katalog seluruh kucing kampus dalam format *grid* (kucing yang sudah dikoleksi tampil berwarna penuh, sedangkan yang belum ditemukan tampil sebagai siluet).
 
+Detail:
+Konsep Game TelCat World
+
+Alur Game:
+Scan QR pada kalung fisik kucing di area kampus (tervalidasi radius GPS).
+Jawab kuis observasi kesehatan (3 soal bertahap: mata/wajah, tubuh/bulu, perilaku; sekaligus mengisi modal awal Trust Bar hingga 75%).
+Masuk ke sesi pendekatan berbasis giliran (maksimal 3 giliran aksi) dengan opsi: Elus Dagu, Beri Ruang, atau Luluhkan.
+Berhasil meluluhkan via Horizontal Timing Bar, klaim poin partisipasi, dan profil kucing otomatis masuk ke koleksi Cat-Dex.
+
+Sesi Pendekatan (Pengganti Mekanik Combat):
+Mengedepankan etika kesejahteraan satwa: interaksi tanpa kekerasan atau serangan; lawan berupa avatar digital yang difokuskan pada pembangunan rasa percaya (Trust).
+Pilihan aksi disederhanakan menjadi 3 tombol:
+Elus Dagu: Menambah rasa percaya kucing (+20% Trust) saat suasana hati nyaman.
+Beri Ruang: Menjaga jarak aman digital, menstabilkan emosi kucing dari waspada kembali tenang (+10% Trust).
+Luluhkan: Mengunci giliran dan mengaktifkan meteran uji ketepatan waktu (timing bar).
+Batasan kesempatan: Maksimal 3 giliran aksi per sesi (Giliran 1/3, 2/3, hingga 3/3).
+Mekanik penentu (Horizontal Timing Bar): Jarum meluncur bolak-balik melewati zona Miss (Merah), Good (Kuning), dan Sweet Spot tepat di tengah (Hijau). Ketukan tepat di zona hijau menyelesaikan sesi seketika.
+Parameter disederhanakan: Status suasana hati (Waspada, Netral, Nyaman), meteran Trust (0–100%), dan Level Persahabatan kumulatif di Cat-Dex.
+
+Bagian Partisipatif (Citizen Science — Inti Capstone):
+Kuis observasi 3 pertanyaan fisik terintegrasi langsung pasca-pemindaian QR.
+Menghimpun data kondisi riil di lapangan (mata bersih/belekan, tubuh kurus/terawat/luka, perilaku aktif/lemas) untuk dilaporkan ke database pengelola kampus tanpa membebani mahasiswa.
+
+Sistem Koleksi (Cat-Dex):
+
+Tab Kafe Kucing: Diorama santai 2D isometrik ala Neko Atsume, menampilkan 5–8 kucing aktif yang bergantian secara acak agar layar tetap rapi.
+Tab Katalog Cat-Dex: Grid daftar kartu kucing (terkoleksi vs siluet terkunci) dilengkapi pop-up modal buku profil (Catbook) bergaya polaroid yang memuat data kesehatan, frekuensi observasi, dan suvenir (memento) kampus.
+
+Teknologi yang Digunakan:
+Frontend: Flutter (Dart) untuk seluruh antarmuka mobile (kamera pemindai QR, kuis bertahap, animasi osilasi timing bar, diorama kafe, dan navigasi 3 menu utama).
+Backend & Database: Laravel (PHP) penyedia RESTful API terintegrasi basis data (Supabase / PostgreSQL) untuk autentikasi, pencatatan log observasi, validasi keamanan QR, dan data koleksi.
+Dashboard Pengelola: Dasbor web sederhana terintegrasi API untuk rekapitulasi data agregat kesehatan dan pemantauan populasi kucing kampus.
+
+
 ---
 
 ## 3. Spesifikasi Fungsional per Layar (Functional Requirements)

@@ -1,0 +1,64 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ / Android Studio related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Environment & Secrets
+.env
+*.env
+
+# Flutter / Dart / Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+/build/
+/coverage/
+
+# Android related (Build & Local SDK Path)
+android/.gradle/
+android/local.properties
+android/app/debug
+android/app/profile
+android/app/release
+
+# iOS / macOS related
+ios/.symlinks/
+ios/Pods/
+ios/Flutter/.last_build_id
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/ephemeral/
+
+# Symbolication & Obfuscation
+app.*.symbols
+app.*.map.json
+.widget_preview/
+
+# Project Specific (Aset Mentah Stitch)
+stitch_export/
