@@ -1,8 +1,8 @@
 # TelCat World — Modul Gamifikasi dan Pemantauan Kucing Kampus
 ### *Super App Kucing Kampus Universitas Telkom*
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.47+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
-[![Dart](https://img.shields.io/badge/Dart-3.13+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
+[![Flutter](https://img.shields.io/badge/Flutter-3.19+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.3+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-%3E%3D8.2-777BB4?logo=php&logoColor=white)](https://php.net)
 [![Supabase](https://img.shields.io/badge/Database-Supabase%20%2F%20PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
@@ -180,7 +180,7 @@ Sistem TelCat World mengadopsi pola arsitektur modular terdistribusi (*Decoupled
 
 | Lapisan Arsitektur | Teknologi / Pustaka | Peran Fungsional |
 | :--- | :--- | :--- |
-| **Mobile Client** | Flutter 3.47+ & Dart 3.13+ | *Multiplatform mobile runtime*, manajemen render 60fps, kanvas isometrik. |
+| **Mobile Client** | Flutter 3.19+ & Dart 3.3+ | *Multiplatform mobile runtime*, manajemen render 60fps, kanvas isometrik. |
 | **Desain & Tipografi** | Google Fonts (*Plus Jakarta Sans*) | Hierarki tipografi modern ramah civitas akademika. |
 | **Pola Arsitektur Frontend** | Feature-First Clean Architecture | Pemisahan fungsional modular antara `core/` dan `features/`. |
 | **Backend Framework** | Laravel 11.x (PHP 8.2+) | Penyedia API RESTful, validasi token, *middleware security*, rate-limiting. |

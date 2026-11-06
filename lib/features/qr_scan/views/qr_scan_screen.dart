@@ -65,7 +65,7 @@ class _QrScanScreenState extends State<QrScanScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppHeaderBar(
+      appBar: const AppHeaderBar(
         title: 'Kucing Kampus',
         subtitle: 'TelCat World • Pemindai QR',
         statusText: 'GPS Tel-U',
@@ -87,7 +87,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                   color: AppColors.sweetSpotGreenBg,
                   borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
                   border: Border.all(
-                    color: AppColors.sweetSpotGreen.withValues(alpha: 0.3),
+                    color: AppColors.sweetSpotGreen.withOpacity(0.3),
                     width: 1,
                   ),
                 ),
@@ -131,9 +131,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                     alignment: Alignment.center,
                     children: [
                       // Camera Grid Mock lines
-                      Opacity(
-                        opacity: 0.15,
-                        child: GridPaper(
+                      const Opacity(opacity: 0.15, child: GridPaper(
                           color: Colors.white,
                           divisions: 2,
                           subdivisions: 1,
@@ -221,7 +219,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                                       color: AppColors.primary,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.primary.withValues(alpha: 0.8),
+                                          color: AppColors.primary.withOpacity(0.8),
                                           blurRadius: 8,
                                           spreadRadius: 2,
                                         ),
@@ -237,7 +235,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                               child: Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.08),
+                                  color: Colors.white.withOpacity(0.08),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const Icon(
@@ -266,7 +264,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                             decoration: BoxDecoration(
                               color: _isFlashOn
                                   ? AppColors.primary
-                                  : Colors.black.withValues(alpha: 0.4),
+                                  : Colors.black.withOpacity(0.4),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
@@ -289,7 +287,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.5),
+                            color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
                           ),
                           child: const Text(
@@ -351,7 +349,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                     ),
                     const SizedBox(height: 10),
                     DropdownButtonFormField<CatModel>(
-                      initialValue: _selectedCat,
+                      value: _selectedCat,
                       isExpanded: true,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
