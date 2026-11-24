@@ -18,38 +18,36 @@
 
 Repositori ini memuat implementasi klien mobile berbasis **Flutter** (versi V2) dan kontrak integrasi layanan backend berbasis **Laravel RESTful API**. Ikuti langkah-langkah di bawah untuk menjalankan lingkungan pengembangan lokal.
 
-### 1. Klien Mobile (Frontend — Flutter 3.19.6 Terisolasi)
+### 1. Klien Mobile (Frontend — Flutter 3.19.6)
 
 Modul frontend telah dilengkapi *offline-first mock repository* (`MockCatRepository`), sehingga seluruh alur pemindaian, batas harian, mini-game mengelus, selebrasi, penamaan permanen, Cat-Dex, dan peta teritorial dapat diuji langsung tanpa koneksi backend aktif.
 
-Project ini diikat ke SDK **Flutter 3.19.6 (Dart 3.3.4)** secara terisolasi melalui berkas `.vscode/settings.json` (`"dart.flutterSdkPath": "C:/src/flutter_3.19.6"`) agar tidak mengganggu instalasi Flutter global di `PATH` sistem.
-
 #### Prasyarat Sistem
-* Flutter SDK **3.19.6** (Dart **3.3.4**) terpasang di `C:\src\flutter_3.19.6`
-* Android Studio / VS Code dengan ekstensi resmi Flutter & Dart (otomatis membaca `.vscode/settings.json`)
+* Flutter SDK **3.19.6** (Dart **3.3.4**) sudah terpasang dan tersedia di `PATH` sistem *(jika memakai SDK terpisah/non-PATH, sesuaikan `dart.flutterSdkPath` pada `.vscode/settings.json`)*
+* Android Studio / VS Code dengan ekstensi resmi Flutter & Dart
 * Konfigurasi Android Gradle `7.6.3` / AGP `7.3.0` / Kotlin `1.8.22` (sudah terkonfigurasi di `android/`)
 * Emulator Android (API Level 30+), Simulator iOS, atau Perangkat Fisik (USB Debugging aktif)
 
 #### Langkah Menjalankan (Terminal / PowerShell)
 1. **Arahkan ke direktori root proyek:**
-   ```powershell
+   ```bash
    cd "telcat world"
    ```
 2. **Unduh seluruh dependensi aplikasi:**
-   ```powershell
-   C:\src\flutter_3.19.6\bin\flutter.bat pub get
+   ```bash
+   flutter pub get
    ```
 3. **Verifikasi kepatuhan kode dan analisis lint:**
-   ```powershell
-   C:\src\flutter_3.19.6\bin\flutter.bat analyze
+   ```bash
+   flutter analyze
    ```
 4. **Jalankan pengujian unit dan widget:**
-   ```powershell
-   C:\src\flutter_3.19.6\bin\flutter.bat test
+   ```bash
+   flutter test
    ```
 5. **Eksekusi aplikasi pada perangkat / emulator:**
-   ```powershell
-   C:\src\flutter_3.19.6\bin\flutter.bat run
+   ```bash
+   flutter run
    ```
 
 > **Mode Demo / Debug Pengujian:** Tekan dan tahan (**long-press 2 detik**) judul header pada layar **Pemindai QR** atau tab **Profil** untuk membuka panel simulasi **Mode Demo / Debug** (*Reset Cooldown Hari Ini* dan *Simulasi 4x Pertemuan* agar pertemuan ke-5 dan fitur penamaan dapat langsung diuji).
@@ -190,7 +188,7 @@ Alur inti (*Core Game Loop*) berjalan sebagai berikut:
 ```text
 telcat-world/
 ├── .vscode/
-│   └── settings.json                       # Mengikat workspace ke C:/src/flutter_3.19.6
+│   └── settings.json                       # Konfigurasi lokal path Flutter SDK workspace (opsional)
 ├── android/                                # Konfigurasi Android Groovy (Gradle 7.6.3 / AGP 7.3.0)
 ├── assets/
 │   ├── images/                             # 12 pose kucing + 6 sprite walk cycle (oren, putih, hitam),
