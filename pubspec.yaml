@@ -26,4 +26,13 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/cafe_bg_cozy.png
+    - assets/images/cafe_bg_pastel.png
+    - assets/images/cafe_bg_night.png
+    - assets/images/cat_oren_walk1.png
+    - assets/images/cat_oren_walk2.png
+    - assets/images/cat_putih_walk1.png
+    - assets/images/cat_putih_walk2.png
+    - assets/images/cat_hitam_walk1.png
+    - assets/images/cat_hitam_walk2.png
     - assets/icons/

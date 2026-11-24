@@ -58,9 +58,9 @@ class _CatalogGridViewState extends State<CatalogGridView> {
           Container(
             padding: const EdgeInsets.all(AppDimensions.spaceMd),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: AppColors.cardBg(context),
               borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-              border: Border.all(color: AppColors.borderCard),
+              border: Border.all(color: AppColors.borderOf(context)),
               boxShadow: AppDimensions.cardShadow,
             ),
             child: Column(
@@ -69,20 +69,25 @@ class _CatalogGridViewState extends State<CatalogGridView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '$collectedCount dari $totalCount Kucing Kampus',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textPrimary,
+                    Flexible(
+                      child: Text(
+                        '$collectedCount dari $totalCount Kucing Kampus',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.textPrimaryOf(context),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                    const SizedBox(width: 8),
                     Text(
                       '${((collectedCount / totalCount) * 100).toInt()}%',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.primary,
+                        color: AppColors.primaryOf(context),
                       ),
                     ),
                   ],
@@ -93,8 +98,10 @@ class _CatalogGridViewState extends State<CatalogGridView> {
                   child: LinearProgressIndicator(
                     value: collectedCount / totalCount,
                     minHeight: 8,
-                    backgroundColor: AppColors.surfaceSubtle,
-                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                    backgroundColor: AppColors.subtleBg(context),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.primaryOf(context),
+                    ),
                   ),
                 ),
               ],
@@ -142,6 +149,7 @@ class _CatalogGridViewState extends State<CatalogGridView> {
 
   Widget _buildFilterChip(String label, CatalogFilter filter) {
     final isSelected = _selectedFilter == filter;
+    final primary = AppColors.primaryOf(context);
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -151,10 +159,10 @@ class _CatalogGridViewState extends State<CatalogGridView> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : AppColors.surface,
+          color: isSelected ? primary : AppColors.cardBg(context),
           borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
           border: Border.all(
-            color: isSelected ? AppColors.primary : AppColors.borderInteractive,
+            color: isSelected ? primary : AppColors.borderInteractiveOf(context),
           ),
         ),
         child: Text(
@@ -162,7 +170,7 @@ class _CatalogGridViewState extends State<CatalogGridView> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: isSelected ? Colors.white : AppColors.textPrimary,
+            color: isSelected ? Colors.white : AppColors.textPrimaryOf(context),
           ),
         ),
       ),
@@ -170,6 +178,7 @@ class _CatalogGridViewState extends State<CatalogGridView> {
   }
 
   Widget _buildCatCard(BuildContext context, CatModel cat) {
+    final isDark = AppColors.isDark(context);
     if (cat.isCollected) {
       // Collected Card (Full Color)
       return GestureDetector(
@@ -184,9 +193,9 @@ class _CatalogGridViewState extends State<CatalogGridView> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: AppColors.cardBg(context),
             borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-            border: Border.all(color: AppColors.borderCard),
+            border: Border.all(color: AppColors.borderOf(context)),
             boxShadow: AppDimensions.cardShadow,
           ),
           padding: const EdgeInsets.all(12),
@@ -199,8 +208,22 @@ class _CatalogGridViewState extends State<CatalogGridView> {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.primaryPeach,
-                      border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 2),
+                      color: AppColors.catAvatarBgOf(context),
+                      border: Border.all(
+                        color: AppColors.primaryOf(context).withOpacity(
+                          cat.variant == CatVariant.hitam && isDark ? 0.55 : 0.3,
+                        ),
+                        width: 2,
+                      ),
+                      boxShadow: cat.variant == CatVariant.hitam && isDark
+                          ? [
+                              BoxShadow(
+                                color: AppColors.darkPrimary.withOpacity(0.18),
+                                blurRadius: 10,
+                                spreadRadius: 1,
+                              ),
+                            ]
+                          : null,
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: Image.asset(
@@ -213,10 +236,10 @@ class _CatalogGridViewState extends State<CatalogGridView> {
               const SizedBox(height: 8),
               Text(
                 cat.name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
+                  color: AppColors.textPrimaryOf(context),
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -224,9 +247,9 @@ class _CatalogGridViewState extends State<CatalogGridView> {
               const SizedBox(height: 2),
               Text(
                 cat.zone,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
-                  color: AppColors.textSecondary,
+                  color: AppColors.textSecondaryOf(context),
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -235,20 +258,38 @@ class _CatalogGridViewState extends State<CatalogGridView> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppColors.sweetSpotGreenBg,
+                  color: cat.isNameLocked
+                      ? AppColors.sweetSpotGreenBg
+                      : AppColors.peachBgOf(context),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.check_circle_rounded, size: 12, color: AppColors.sweetSpotGreen),
+                    Icon(
+                      cat.isNameLocked
+                          ? Icons.lock_rounded
+                          : Icons.pets_rounded,
+                      size: 12,
+                      color: cat.isNameLocked
+                          ? AppColors.sweetSpotGreen
+                          : AppColors.peachTextOf(context),
+                    ),
                     const SizedBox(width: 4),
-                    Text(
-                      'Lv. ${cat.friendshipLevel}',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.sweetSpotGreen,
+                    Flexible(
+                      child: Text(
+                        cat.isNameLocked
+                            ? 'Nama Terkunci'
+                            : 'Pertemuan ${cat.encounterCount}/5',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: cat.isNameLocked
+                              ? AppColors.sweetSpotGreen
+                              : AppColors.peachTextOf(context),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -262,9 +303,9 @@ class _CatalogGridViewState extends State<CatalogGridView> {
       // Uncollected Card (Dark Silhouette & Question mark)
       return Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF0F0F3),
+          color: isDark ? AppColors.darkSurfaceElevated : const Color(0xFFF0F0F3),
           borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-          border: Border.all(color: AppColors.borderSubtle, width: 1),
+          border: Border.all(color: AppColors.borderOf(context), width: 1),
         ),
         padding: const EdgeInsets.all(12),
         child: Column(

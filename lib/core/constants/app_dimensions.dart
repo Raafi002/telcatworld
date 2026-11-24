@@ -25,9 +25,6 @@ class AppDimensions {
   static const double buttonHeight = 54.0;
   static const double headerBarHeight = 56.0;
   static const double mascotIconSize = 40.0;
-  static const double timingBarHeight = 28.0;
-  static const double timingBarNeedleHeight = 36.0;
-  static const double timingBarNeedleWidth = 10.0;
 
   // Box Shadows
   static const List<BoxShadow> cardShadow = [

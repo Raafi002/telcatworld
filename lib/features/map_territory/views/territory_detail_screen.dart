@@ -24,7 +24,7 @@ class TerritoryDetailScreen extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.scaffoldBg(context),
       appBar: AppHeaderBar(
         title: territory.name,
         subtitle: 'Zona Kampus Tel-U',
@@ -46,7 +46,7 @@ class TerritoryDetailScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
                   boxShadow: AppDimensions.cardShadow,
-                  border: Border.all(color: AppColors.borderCard),
+                  border: Border.all(color: AppColors.borderOf(context)),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Stack(
@@ -97,28 +97,28 @@ class TerritoryDetailScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(AppDimensions.spaceMd),
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: AppColors.cardBg(context),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-                  border: Border.all(color: AppColors.borderCard),
+                  border: Border.all(color: AppColors.borderOf(context)),
                   boxShadow: AppDimensions.cardShadow,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Tentang Teritorial Ini',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.textPrimary,
+                        color: AppColors.textPrimaryOf(context),
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       territory.description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
-                        color: AppColors.textSecondary,
+                        color: AppColors.textSecondaryOf(context),
                         height: 1.45,
                       ),
                     ),
@@ -132,20 +132,25 @@ class TerritoryDetailScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Kucing Penghuni Wilayah (${residentCats.length})',
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.textPrimary,
+                  Flexible(
+                    child: Text(
+                      'Kucing Penghuni Wilayah (${residentCats.length})',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textPrimaryOf(context),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Text(
+                  const SizedBox(width: 8),
+                  Text(
                     'Sering Terpantau',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.primary,
+                      color: AppColors.primaryOf(context),
                     ),
                   ),
                 ],
@@ -183,9 +188,9 @@ class TerritoryDetailScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: AppColors.cardBg(context),
         borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-        border: Border.all(color: AppColors.borderCard),
+        border: Border.all(color: AppColors.borderOf(context)),
         boxShadow: AppDimensions.cardShadow,
       ),
       child: Row(
@@ -195,8 +200,9 @@ class TerritoryDetailScreen extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.primaryPeach,
-              border: Border.all(color: AppColors.primary, width: 1.5),
+              color: AppColors.catAvatarBgOf(context),
+              border: Border.all(
+                  color: AppColors.primaryOf(context), width: 1.5),
             ),
             clipBehavior: Clip.antiAlias,
             child: Image.asset(
@@ -211,37 +217,43 @@ class TerritoryDetailScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      cat.name,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textPrimary,
+                    Flexible(
+                      child: Text(
+                        cat.name,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.textPrimaryOf(context),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: 6),
                     if (cat.isCollected)
-                      const Icon(Icons.check_circle_rounded, size: 14, color: AppColors.sweetSpotGreen)
+                      const Icon(Icons.check_circle_rounded,
+                          size: 14, color: AppColors.sweetSpotGreen)
                     else
-                      const Icon(Icons.help_outline_rounded, size: 14, color: AppColors.textTertiary),
+                      Icon(Icons.help_outline_rounded,
+                          size: 14, color: AppColors.textTertiaryOf(context)),
                   ],
                 ),
                 const SizedBox(height: 2),
                 Text(
                   cat.locationDetail,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textSecondaryOf(context),
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   cat.personality,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
-                    color: AppColors.primaryPeachDark,
+                    color: AppColors.peachTextOf(context),
                   ),
                 ),
               ],

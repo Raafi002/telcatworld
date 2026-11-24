@@ -8,10 +8,14 @@ import '../../qr_scan/views/qr_scan_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   final int initialIndex;
+  final int initialCatDexTab;
+  final String? openCatProfileId;
 
   const MainNavigationScreen({
     super.key,
     this.initialIndex = 0,
+    this.initialCatDexTab = 0,
+    this.openCatProfileId,
   });
 
   @override
@@ -38,16 +42,19 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Active Screen Body
           IndexedStack(
             index: _currentIndex,
-            children: const [
-              CatDexTabScreen(),
-              TerritoryMapScreen(),
-              ProfileTabScreen(),
+            children: [
+              CatDexTabScreen(
+                initialTabIndex: widget.initialCatDexTab,
+                openCatProfileId: widget.openCatProfileId,
+              ),
+              const TerritoryMapScreen(),
+              const ProfileTabScreen(),
             ],
           ),
 
@@ -55,15 +62,19 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 84 + MediaQuery.of(context).padding.bottom, // 24px above the 60px bottom bar
+            bottom: 84 + MediaQuery.of(context).padding.bottom,
             child: Center(
               child: GestureDetector(
                 onTap: _openQrScanner,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
+                    borderRadius:
+                        BorderRadius.circular(AppDimensions.radiusFull),
                     boxShadow: const [
                       BoxShadow(
                         color: Color.fromRGBO(242, 106, 27, 0.4),
@@ -102,14 +113,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
       // Fixed Bottom Navigation Bar (3 items: Cat-Dex, Peta, Profil)
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: AppColors.cardBg(context),
           border: Border(
-            top: BorderSide(color: AppColors.borderCard, width: 1),
+            top: BorderSide(color: AppColors.borderOf(context), width: 1),
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.04),
+              color: Color.fromRGBO(0, 0, 0, 0.08),
               blurRadius: 12,
               offset: Offset(0, -2),
             ),
@@ -150,6 +161,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     required IconData icon,
   }) {
     final isSelected = _currentIndex == index;
+    final activeColor = AppColors.primaryOf(context);
+    final inactiveColor = AppColors.textSecondaryOf(context);
 
     return Expanded(
       child: InkWell(
@@ -158,7 +171,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             _currentIndex = index;
           });
         },
-        splashColor: AppColors.primaryPeach,
+        splashColor: AppColors.peachBgOf(context),
         highlightColor: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -166,7 +179,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             Icon(
               icon,
               size: 22,
-              color: isSelected ? AppColors.primary : AppColors.textSecondary,
+              color: isSelected ? activeColor : inactiveColor,
             ),
             const SizedBox(height: 3),
             Text(
@@ -174,7 +187,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                color: isSelected ? activeColor : inactiveColor,
               ),
             ),
           ],

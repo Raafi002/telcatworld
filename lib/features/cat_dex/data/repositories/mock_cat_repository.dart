@@ -9,238 +9,302 @@ class MockCatRepository extends ChangeNotifier {
   factory MockCatRepository() => _instance;
   MockCatRepository._internal();
 
-  int userExpeditionPoints = 185;
-  int userTotalObservations = 24;
+  /// Daftar simulasi nama permanen yang sudah terkunci (case-insensitive)
+  /// untuk validasi keunikan nama kucing di seluruh katalog kampus.
+  final Set<String> _lockedNames = {
+    'si oyen',
+    'kuro',
+    'luna',
+  };
+
+  Set<String> get lockedNames => Set.unmodifiable(_lockedNames);
 
   final List<CatModel> _cats = [
     const CatModel(
       id: 'cat_001',
       name: 'Si Oyen',
       qrHash: 'TELCAT-TULT-001',
-      zone: 'Area TULT',
+      variant: CatVariant.oren,
+      zone: 'TULT & Asrama',
       locationDetail: 'Lobby Utama Gedung TULT Lt. 1',
-      avatarAsset: AppAssets.catSiOyen,
-      photoAsset: AppAssets.catPhotoOyen,
-      healthStatus: 'Sehat & Steril',
+      avatarAsset: AppAssets.catOrenHead,
+      photoAsset: AppAssets.catOrenHappy,
+      healthStatus: 'Sehat & Steril (Data Pengelola)',
       personality: 'Pemberani & Suka Camilan',
-      friendshipLevel: 4,
-      trustPercentage: 90,
-      observationCount: 16,
-      lastObservedDate: 'Hari ini, 10:45 WIB',
-      mementoName: 'Daun Emas Situ Techno',
-      mementoDescription: 'Daun kering gugur yang sering dijadikan mainan Si Oyen sebelum menyapa mahasiswa.',
+      encounterCount: 5,
+      lastScannedDate: null,
+      isNameLocked: true,
       isCollected: true,
       isCurrentlyInCafe: true,
       cafePose: 'pillow',
-      cafeQuote: 'Purrr... Elus daguku lagi dong, teman!',
+      quote: 'Kalau bawa ikan tongkol, kita langsung bestie!',
     ),
     const CatModel(
       id: 'cat_002',
-      name: 'Mochi',
+      name: 'Kucing Putih #02',
       qrHash: 'TELCAT-ASRAMA-002',
-      zone: 'Area Asrama',
+      variant: CatVariant.putih,
+      zone: 'TULT & Asrama',
       locationDetail: 'Teras Gazebo Asrama Putri',
-      avatarAsset: AppAssets.catMochi,
-      photoAsset: AppAssets.catMochi,
-      healthStatus: 'Sehat & Terawat',
+      avatarAsset: AppAssets.catPutihHead,
+      photoAsset: AppAssets.catPutihHappy,
+      healthStatus: 'Sehat & Terawat (Data Pengelola)',
       personality: 'Manja & Suka Mendengkur',
-      friendshipLevel: 3,
-      trustPercentage: 80,
-      observationCount: 11,
-      lastObservedDate: 'Kemarin, 16:20 WIB',
-      mementoName: 'Pita Bunga Tel-U',
-      mementoDescription: 'Pita merah mungil yang pernah dipakai Mochi saat acara sambut mahasiswa baru.',
+      encounterCount: 4,
+      lastScannedDate: null,
+      isNameLocked: false,
       isCollected: true,
       isCurrentlyInCafe: true,
       cafePose: 'box',
-      cafeQuote: 'Kardus hangat ini adalah singgasana terbaikku!',
+      quote: 'Kardus hangat ini adalah singgasana terbaikku!',
     ),
-    const CatModel(
+    CatModel(
       id: 'cat_003',
       name: 'Kuro',
       qrHash: 'TELCAT-DANAU-003',
-      zone: 'Area Danau Techno',
-      locationDetail: 'Tepian Jalur Jogging Situ Techno',
-      avatarAsset: AppAssets.catSiOyen,
-      photoAsset: AppAssets.catPhotoOyen,
-      healthStatus: 'Sehat & Lincah',
+      variant: CatVariant.hitam,
+      zone: 'Cacuk',
+      locationDetail: 'Tepian Jalur Jogging Dekat Gedung Cacuk',
+      avatarAsset: AppAssets.catHitamHead,
+      photoAsset: AppAssets.catHitamHappy,
+      healthStatus: 'Sehat & Lincah (Data Pengelola)',
       personality: 'Misterius & Mandiri',
-      friendshipLevel: 2,
-      trustPercentage: 65,
-      observationCount: 7,
-      lastObservedDate: '3 hari lalu',
-      mementoName: 'Batu Kerikil Danau',
-      mementoDescription: 'Batu hitam bundar halus yang Kuro suka dorong dengan cakarnya.',
+      encounterCount: 5,
+      lastScannedDate: DateTime.now(),
+      isNameLocked: true,
       isCollected: true,
       isCurrentlyInCafe: true,
       cafePose: 'carpet',
-      cafeQuote: 'Aku suka mengamati orang lalu-lalang dari sudut tenang ini.',
+      quote: 'Jangan kaget kalau aku tiba-tiba muncul di pinggir danau ya!',
     ),
     const CatModel(
       id: 'cat_004',
-      name: 'Belang',
+      name: 'Kucing Oren #04',
       qrHash: 'TELCAT-GKU-004',
-      zone: 'Area GKU',
+      variant: CatVariant.oren,
+      zone: 'GKU',
       locationDetail: 'Koridor Depan Gedung Kuliah Bersama Lt. 2',
-      avatarAsset: AppAssets.catSiOyen,
-      photoAsset: AppAssets.catPhotoOyen,
-      healthStatus: 'Dalam Pantauan Relawan',
+      avatarAsset: AppAssets.catOrenHead,
+      photoAsset: AppAssets.catOrenHappy,
+      healthStatus: 'Dalam Pantauan Pengelola',
       personality: 'Waspada tapi Penasaran',
-      friendshipLevel: 1,
-      trustPercentage: 30,
-      observationCount: 2,
-      lastObservedDate: '1 minggu lalu',
-      mementoName: 'Gantungan Kunci Kuliah',
-      mementoDescription: 'Suvenir gantungan tas mahasiswa yang pernah dicakar ramah oleh Belang.',
+      encounterCount: 0,
+      lastScannedDate: null,
+      isNameLocked: false,
       isCollected: false,
       isCurrentlyInCafe: false,
       cafePose: 'tree',
-      cafeQuote: 'Ssst... aku sedang menyimak kuliah umum dari koridor!',
+      quote: 'Ssst... aku sedang menyimak kuliah umum dari balik pilar koridor!',
     ),
     const CatModel(
       id: 'cat_005',
-      name: 'Boba',
+      name: 'Kucing Putih #05',
       qrHash: 'TELCAT-OPLIB-005',
-      zone: 'Area Perpustakaan',
-      locationDetail: 'Bawah Tangga Utama Open Library',
-      avatarAsset: AppAssets.catMochi,
-      photoAsset: AppAssets.catMochi,
-      healthStatus: 'Sehat & Gemuk',
+      variant: CatVariant.putih,
+      zone: 'GKU',
+      locationDetail: 'Teras Teduh Sisi Timur Gedung GKU',
+      avatarAsset: AppAssets.catPutihHead,
+      photoAsset: AppAssets.catPutihHappy,
+      healthStatus: 'Sehat & Gemuk (Data Pengelola)',
       personality: 'Santai & Hobi Tidur',
-      friendshipLevel: 1,
-      trustPercentage: 15,
-      observationCount: 1,
-      lastObservedDate: '2 minggu lalu',
-      mementoName: 'Pembatas Buku Akademik',
-      mementoDescription: 'Kertas pembatas novel yang jatuh di lantai perpustakaan.',
+      encounterCount: 0,
+      lastScannedDate: null,
+      isNameLocked: false,
       isCollected: false,
       isCurrentlyInCafe: false,
       cafePose: 'stool',
-      cafeQuote: 'Jangan bising ya, tempat membaca buku harus tenang.',
+      quote: 'Skripsi boleh menumpuk, tapi tidur siang tetap nomor satu.',
     ),
     const CatModel(
       id: 'cat_006',
       name: 'Luna',
       qrHash: 'TELCAT-TN-006',
-      zone: 'Area Tokong Nanas',
-      locationDetail: 'Bawah Pohon Rindang Gedung Deli',
-      avatarAsset: AppAssets.catMochi,
-      photoAsset: AppAssets.catMochi,
-      healthStatus: 'Sehat & Steril',
+      variant: CatVariant.putih,
+      zone: 'Fakultas Depan',
+      locationDetail: 'Bawah Pohon Rindang Kompleks Fakultas Depan',
+      avatarAsset: AppAssets.catPutihHead,
+      photoAsset: AppAssets.catPutihHappy,
+      healthStatus: 'Sehat & Steril (Data Pengelola)',
       personality: 'Ramah & Suka Dibelai',
-      friendshipLevel: 2,
-      trustPercentage: 70,
-      observationCount: 5,
-      lastObservedDate: '2 hari lalu',
-      mementoName: 'Bunga Kamboja Putih',
-      mementoDescription: 'Kelopak bunga harum yang sering jatuh tepat di atas kepala Luna.',
+      encounterCount: 5,
+      lastScannedDate: null,
+      isNameLocked: true,
       isCollected: true,
       isCurrentlyInCafe: true,
       cafePose: 'tree',
-      cafeQuote: 'Selamat pagi civitas akademika! Semangat kuliahnya ya!',
+      quote: 'Elus kepalaku sebentar sebelum masuk kelas ya, biar harimu cerah!',
     ),
     const CatModel(
       id: 'cat_007',
-      name: 'Chiko',
+      name: 'Kucing Hitam #07',
       qrHash: 'TELCAT-CACUK-007',
-      zone: 'Area Gedung Cacuk',
-      locationDetail: 'Area Parkir Dosen Barat',
-      avatarAsset: AppAssets.catSiOyen,
-      photoAsset: AppAssets.catPhotoOyen,
-      healthStatus: 'Sehat',
+      variant: CatVariant.hitam,
+      zone: 'Cacuk',
+      locationDetail: 'Pelataran Gedung Cacuk & Gedung Lengkung',
+      avatarAsset: AppAssets.catHitamHead,
+      photoAsset: AppAssets.catHitamHappy,
+      healthStatus: 'Sehat (Data Pengelola)',
       personality: 'Cepat & Gesit',
-      friendshipLevel: 1,
-      trustPercentage: 10,
-      observationCount: 1,
-      lastObservedDate: '5 hari lalu',
-      mementoName: 'Tutup Botol Minum',
-      mementoDescription: 'Mainan favorit Chiko saat mengejar bayangan sore hari.',
+      encounterCount: 0,
+      lastScannedDate: null,
+      isNameLocked: false,
       isCollected: false,
       isCurrentlyInCafe: false,
       cafePose: 'carpet',
-      cafeQuote: 'Kecepatan adalah keunggulanku!',
+      quote: 'Bayangan lewat di parkiran? Itu aku yang lagi patroli sore!',
     ),
     const CatModel(
       id: 'cat_008',
-      name: 'Milo',
+      name: 'Kucing Oren #08',
       qrHash: 'TELCAT-SC-008',
-      zone: 'Area Student Center',
-      locationDetail: 'Depan Pintu Koperasi Mahasiswa SC',
-      avatarAsset: AppAssets.catSiOyen,
-      photoAsset: AppAssets.catPhotoOyen,
-      healthStatus: 'Sehat & Steril',
+      variant: CatVariant.oren,
+      zone: 'Fakultas Depan',
+      locationDetail: 'Selasar Gerbang Utama Fakultas Depan',
+      avatarAsset: AppAssets.catOrenHead,
+      photoAsset: AppAssets.catOrenHappy,
+      healthStatus: 'Sehat & Steril (Data Pengelola)',
       personality: 'Penyambut Tamu Handal',
-      friendshipLevel: 3,
-      trustPercentage: 85,
-      observationCount: 9,
-      lastObservedDate: 'Hari ini, 08:15 WIB',
-      mementoName: 'Sedotan Ramah Lingkungan',
-      mementoDescription: 'Sedotan kertas dari kantin SC yang selalu dibawa Milo bermain.',
+      encounterCount: 2,
+      lastScannedDate: null,
+      isNameLocked: false,
       isCollected: true,
       isCurrentlyInCafe: true,
       cafePose: 'pillow',
-      cafeQuote: 'Ada yang mau pesan es kopi? Mampir ke SC yuk!',
+      quote: 'Ada yang baru datang lewat gerbang depan? Sapa aku dulu ya!',
     ),
   ];
 
   final List<TerritoryModel> _territories = const [
     TerritoryModel(
       id: 'territory_tult',
-      name: 'Zona TULT & Asrama',
-      description: 'Gedung Kuliah Terpadu 19 Lantai Telkom University. Wilayah berkumpul paling ramai kucing kampus karena banyak sisa tempat teduh dan civitas yang peduli.',
-      landmark: 'Menara Biru TULT & Gazebo Asrama',
-      activeCatsCount: 3,
+      name: 'TULT & Asrama',
+      shortLabel: '🏢 TULT & Asrama',
+      description:
+          'Area semenanjung kiri atas antara menara Telkom University Landmark Tower (TULT) dan deretan gedung asrama mahasiswa.',
+      landmark: 'Menara TULT & Deretan Gedung Asrama',
+      activeCatsCount: 2,
       imageAsset: AppAssets.zoneTult,
       residentCatIds: ['cat_001', 'cat_002'],
       latitude: -6.9730,
       longitude: 107.6300,
+      mapDx: 0.31,
+      mapDy: 0.18,
     ),
     TerritoryModel(
       id: 'territory_gku',
-      name: 'Zona GKU & Fakultas',
-      description: 'Kawasan Gedung Kuliah Bersama Fakultas Teknik dan Ekonomi. Kucing di zona ini sering beristirahat di tangga koridor luar yang sejuk.',
-      landmark: 'Koridor Utama GKU & Kantin Baru',
+      name: 'GKU',
+      shortLabel: '🏫 GKU',
+      description:
+          'Gedung Kuliah Umum persegi besar berhalaman tengah di sisi kiri-tengah kampus yang sejuk untuk tempat berteduh kucing.',
+      landmark: 'Gedung Kuliah Umum & Halaman Tengah',
       activeCatsCount: 2,
       imageAsset: AppAssets.campusMap,
-      residentCatIds: ['cat_004', 'cat_007'],
+      residentCatIds: ['cat_004', 'cat_005'],
       latitude: -6.9745,
       longitude: 107.6315,
+      mapDx: 0.37,
+      mapDy: 0.43,
     ),
     TerritoryModel(
-      id: 'territory_danau',
-      name: 'Zona Danau & Open Library',
-      description: 'Lingkungan hijau asri di sekitar danau Situ Techno dan gedung Perpustakaan Pusat. Suasana tenang sangat cocok untuk kucing bersantai.',
-      landmark: 'Danau Situ Techno & Gedung Perpustakaan',
+      id: 'territory_cacuk',
+      name: 'Cacuk',
+      shortLabel: '🏛️ Cacuk',
+      description:
+          'Area gedung akademik horizontal & gedung lengkung di pusat kampus berdekatan dengan Danau Situ Techno.',
+      landmark: 'Gedung Cacuk & Gedung Lengkung Pusat',
       activeCatsCount: 2,
       imageAsset: AppAssets.campusMap,
-      residentCatIds: ['cat_003', 'cat_005'],
+      residentCatIds: ['cat_003', 'cat_007'],
       latitude: -6.9710,
       longitude: 107.6285,
+      mapDx: 0.48,
+      mapDy: 0.58,
     ),
     TerritoryModel(
-      id: 'territory_sc',
-      name: 'Zona Student Center & Deli',
-      description: 'Pusat aktivitas organisasi mahasiswa dan UKM kampus Telkom University, selalu dipenuhi tawa dan interaksi hangat.',
-      landmark: 'Gedung SC & Kantin Rindang Tokong Nanas',
+      id: 'territory_fakultas',
+      name: 'Fakultas Depan',
+      shortLabel: '🎓 Fakultas Depan',
+      description:
+          'Kompleks gedung fakultas di sisi kanan dekat gerbang utama yang ramai disapa mahasiswa setiap pagi.',
+      landmark: 'Kompleks Fakultas Depan & Gerbang Utama',
       activeCatsCount: 2,
       imageAsset: AppAssets.zoneTult,
       residentCatIds: ['cat_006', 'cat_008'],
       latitude: -6.9720,
       longitude: 107.6330,
+      mapDx: 0.74,
+      mapDy: 0.50,
     ),
   ];
 
   // Getters
+  String? _selectedAvatarCatId;
+
   List<CatModel> get allCats => List.unmodifiable(_cats);
 
   List<CatModel> get collectedCats =>
       _cats.where((c) => c.isCollected).toList();
+
+  List<CatModel> get encounteredCats =>
+      _cats.where((c) => c.encounterCount > 0).toList();
 
   List<CatModel> get uncollectedCats =>
       _cats.where((c) => !c.isCollected).toList();
 
   List<CatModel> get cafeActiveCats =>
       _cats.where((c) => c.isCollected && c.isCurrentlyInCafe).toList();
+
+  int get totalEncounters =>
+      _cats.fold<int>(0, (sum, cat) => sum + cat.encounterCount);
+
+  int get maxEncounterCount {
+    var highest = 0;
+    for (final cat in _cats) {
+      if (cat.encounterCount > highest) {
+        highest = cat.encounterCount;
+      }
+    }
+    return highest;
+  }
+
+  int get lockedNamesCount => _cats.where((c) => c.isNameLocked).length;
+
+  /// Kucing yang paling sering dijumpai (nilai encounterCount tertinggi).
+  CatModel? get bestBuddyCat {
+    final metCats = encounteredCats;
+    if (metCats.isEmpty) return null;
+    CatModel best = metCats.first;
+    for (final cat in metCats.skip(1)) {
+      if (cat.encounterCount > best.encounterCount) {
+        best = cat;
+      }
+    }
+    return best;
+  }
+
+  /// Kucing yang dipilih sebagai avatar profil (fallback ke kucing pertama yang ditemui).
+  CatModel? get selectedAvatarCat {
+    final metCats = encounteredCats;
+    if (metCats.isEmpty) return null;
+    if (_selectedAvatarCatId != null) {
+      for (final cat in metCats) {
+        if (cat.id == _selectedAvatarCatId) {
+          return cat;
+        }
+      }
+    }
+    return metCats.first;
+  }
+
+  String get selectedProfileAvatarAsset =>
+      selectedAvatarCat?.headPoseAsset ?? AppAssets.catOrenHead;
+
+  void selectProfileAvatar(String catId) {
+    final target = encounteredCats.where((c) => c.id == catId);
+    if (target.isEmpty) return;
+    _selectedAvatarCatId = catId;
+    notifyListeners();
+  }
 
   List<TerritoryModel> get territories => List.unmodifiable(_territories);
 
@@ -265,26 +329,88 @@ class MockCatRepository extends ChangeNotifier {
     );
   }
 
-  // Action: Meluluhkan kucing & klaim observasi
-  void completeEncounter({
-    required String catId,
-    required int earnedPoints,
-    required String lastObservationDate,
-  }) {
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  bool isScannedToday(String catId) {
+    return getCatById(catId).isScannedToday;
+  }
+
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  CatModel recordEncounter(String catId) {
     final index = _cats.indexWhere((c) => c.id == catId);
-    if (index != -1) {
-      final old = _cats[index];
-      _cats[index] = old.copyWith(
-        isCollected: true,
-        isCurrentlyInCafe: true,
-        friendshipLevel: old.friendshipLevel + 1,
-        trustPercentage: 100,
-        observationCount: old.observationCount + 1,
-        lastObservedDate: lastObservationDate,
-      );
-      userExpeditionPoints += earnedPoints;
-      userTotalObservations += 1;
-      notifyListeners();
+    if (index == -1) return _cats.first;
+
+    final old = _cats[index];
+    final updated = old.copyWith(
+      isCollected: true,
+      isCurrentlyInCafe: true,
+      encounterCount: old.encounterCount + 1,
+      lastScannedDate: DateTime.now(),
+    );
+    _cats[index] = updated;
+    notifyListeners();
+    return updated;
+  }
+
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  bool isNameTaken(String name) {
+    final normalized = name.trim().toLowerCase();
+    return _lockedNames.contains(normalized);
+  }
+
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  String? renameCat(String catId, String newName) {
+    final trimmed = newName.trim();
+    if (trimmed.isEmpty) {
+      return 'Nama tidak boleh kosong.';
     }
+    if (trimmed.length < 2 || trimmed.length > 20) {
+      return 'Panjang nama harus 2–20 karakter.';
+    }
+    if (isNameTaken(trimmed)) {
+      return 'Nama ini sudah dipakai kucing lain, pilih nama lain ya!';
+    }
+
+    final index = _cats.indexWhere((c) => c.id == catId);
+    if (index == -1) return 'Kucing tidak ditemukan.';
+
+    final old = _cats[index];
+    if (!old.canBeNamed) {
+      return 'Kucing ini belum memenuhi syarat 5x pertemuan atau namanya sudah terkunci.';
+    }
+
+    _lockedNames.add(trimmed.toLowerCase());
+    _cats[index] = old.copyWith(
+      name: trimmed,
+      isNameLocked: true,
+    );
+    notifyListeners();
+    return null;
+  }
+
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  void resetAllDailyCooldowns() {
+    for (var i = 0; i < _cats.length; i++) {
+      _cats[i] = _cats[i].copyWith(clearLastScannedDate: true);
+    }
+    notifyListeners();
+  }
+
+  // TODO: Ganti simulasi lokal ini dengan endpoint API Laravel terpusat (encounter log, daily cooldown 1x/hari, dan update nama permanen)
+  void simulateFourEncounters(String catId) {
+    final index = _cats.indexWhere((c) => c.id == catId);
+    if (index == -1) return;
+
+    final old = _cats[index];
+    if (old.isNameLocked) {
+      _lockedNames.remove(old.name.trim().toLowerCase());
+    }
+    _cats[index] = old.copyWith(
+      encounterCount: 4,
+      isNameLocked: false,
+      isCollected: true,
+      isCurrentlyInCafe: true,
+      clearLastScannedDate: true,
+    );
+    notifyListeners();
   }
 }

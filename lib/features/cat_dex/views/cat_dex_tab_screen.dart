@@ -5,13 +5,16 @@ import '../../../core/widgets/app_header_bar.dart';
 import '../data/repositories/mock_cat_repository.dart';
 import 'widgets/cafe_sanctuary_view.dart';
 import 'widgets/catalog_grid_view.dart';
+import 'widgets/catbook_polaroid_modal.dart';
 
 class CatDexTabScreen extends StatefulWidget {
   final int initialTabIndex;
+  final String? openCatProfileId;
 
   const CatDexTabScreen({
     super.key,
     this.initialTabIndex = 0,
+    this.openCatProfileId,
   });
 
   @override
@@ -25,6 +28,26 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
   void initState() {
     super.initState();
     _selectedTab = widget.initialTabIndex;
+
+    if (widget.openCatProfileId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        final cat = MockCatRepository().getCatById(widget.openCatProfileId!);
+        showDialog<void>(
+          context: context,
+          builder: (_) => CatbookPolaroidModal(
+            cat: cat,
+            onVisitInCafe: () {
+              if (mounted) {
+                setState(() {
+                  _selectedTab = 0;
+                });
+              }
+            },
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -33,7 +56,7 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
       listenable: MockCatRepository(),
       builder: (context, _) {
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppHeaderBar(
             title: 'Kucing Kampus',
             subtitle: _selectedTab == 0
@@ -53,9 +76,9 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
                 ),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceSubtle,
+                  color: AppColors.subtleBg(context),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
-                  border: Border.all(color: AppColors.borderSubtle),
+                  border: Border.all(color: AppColors.borderOf(context)),
                 ),
                 child: Row(
                   children: [
@@ -71,7 +94,9 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
                           duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
-                            color: _selectedTab == 0 ? AppColors.primary : Colors.transparent,
+                            color: _selectedTab == 0
+                                ? AppColors.primary
+                                : Colors.transparent,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: _selectedTab == 0
                                 ? const [
@@ -87,20 +112,28 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                                Text(
                                 '☕',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: _selectedTab == 0 ? Colors.white : AppColors.textSecondary,
+                                  color: _selectedTab == 0
+                                      ? Colors.white
+                                      : AppColors.textSecondaryOf(context),
                                 ),
                               ),
                               const SizedBox(width: 6),
-                              Text(
-                                'Kafe Kucing',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedTab == 0 ? Colors.white : AppColors.textSecondary,
+                              Flexible(
+                                child: Text(
+                                  'Kafe Kucing',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: _selectedTab == 0
+                                        ? Colors.white
+                                        : AppColors.textSecondaryOf(context),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -121,7 +154,9 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
                           duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
-                            color: _selectedTab == 1 ? AppColors.primary : Colors.transparent,
+                            color: _selectedTab == 1
+                                ? AppColors.primary
+                                : Colors.transparent,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: _selectedTab == 1
                                 ? const [
@@ -141,16 +176,24 @@ class _CatDexTabScreenState extends State<CatDexTabScreen> {
                                 '📋',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: _selectedTab == 1 ? Colors.white : AppColors.textSecondary,
+                                  color: _selectedTab == 1
+                                      ? Colors.white
+                                      : AppColors.textSecondaryOf(context),
                                 ),
                               ),
                               const SizedBox(width: 6),
-                              Text(
-                                'Katalog Cat-Dex',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: _selectedTab == 1 ? Colors.white : AppColors.textSecondary,
+                              Flexible(
+                                child: Text(
+                                  'Katalog Cat-Dex',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: _selectedTab == 1
+                                        ? Colors.white
+                                        : AppColors.textSecondaryOf(context),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
